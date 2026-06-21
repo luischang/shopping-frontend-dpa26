@@ -43,6 +43,9 @@
 import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
 import axios from 'axios'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const BASE_URL = 'http://localhost'
 const PORT = 5272
@@ -87,8 +90,10 @@ const handleSubmit = async () => {
       type: 'positive',
       message: 'Inicio de sesión correcto',
     })
+    //Add token in localStorage
+    localStorage.setItem('token', response.data.token)
 
-    console.log('Login success:', response.data)
+    router.push('/')
   } catch (err) {
     console.log('Login error:', err)
     if (axios.isAxiosError(err)) {
